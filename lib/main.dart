@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unit_converter_app/category.dart';
-
-const _categoryName = 'Cake';
-const _categoryIcon = Icons.cake;
-const _categoryColor = Colors.green;
+import 'package:unit_converter_app/category_route.dart';
 
 /// The function that is called when main.dart is run.
 void main() {
@@ -17,19 +13,10 @@ class UnitConverterApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Unit Converter',
-      home: Scaffold(
-        backgroundColor: Colors.green[100],
-        body: const Center(
-          child: Category(
-            name: _categoryName,
-            color: _categoryColor,
-            iconLocation: _categoryIcon,
-          ),
-        ),
-      ),
+      home: CategoryRoute()
     );
   }
 }
