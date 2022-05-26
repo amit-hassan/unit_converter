@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:unit_converter_app/category.dart';
+import 'package:unit_converter_app/unit.dart';
 
 final _backgroundColor = Colors.green[100];
 
 class CategoryRoute extends StatelessWidget {
-
   const CategoryRoute({Key? key}) : super(key: key);
 
   static const _categoryNames = <String>[
@@ -29,26 +29,35 @@ class CategoryRoute extends StatelessWidget {
     Colors.red,
   ];
 
-  /// Makes the correct number of rows for the list view.
-  ///
   /// For portrait, we construct a [ListView] from the list of category widgets.
   Widget _buildCategoryWidgets(List<Widget> categories) {
     return ListView.builder(
-        itemBuilder: (BuildContext context, int index) => categories[index],
-        itemCount: categories.length,
+      itemBuilder: (BuildContext context, int index) => categories[index],
+      itemCount: categories.length,
     );
+  }
+
+  ///Returns a list of mock [Unit]s
+  List<Unit> _retrieveUnitList(String categoryName) {
+    return List.generate(10, (index) {
+      index += 1;
+      return Unit(
+        name: '$categoryName Unit $index',
+        conversion: index.toDouble(),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-
     final categories = <Category>[];
 
-    for(var i = 0; i < _categoryNames.length; i++) {
+    for (var i = 0; i < _categoryNames.length; i++) {
       categories.add(Category(
-          name: _categoryNames[i],
-          color: _baseColors[i] as ColorSwatch<dynamic>,
-          iconLocation: Icons.cake,
+        name: _categoryNames[i],
+        color: _baseColors[i] as ColorSwatch<dynamic>,
+        iconLocation: Icons.cake,
+        units: _retrieveUnitList(_categoryNames[i]),
       ));
     }
 
@@ -62,10 +71,7 @@ class CategoryRoute extends StatelessWidget {
       elevation: 0.0,
       title: const Text(
         'Unit Converter',
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 30.0
-        ),
+        style: TextStyle(color: Colors.black, fontSize: 30.0),
       ),
       centerTitle: true,
       backgroundColor: _backgroundColor,
