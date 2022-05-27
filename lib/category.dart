@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unit_converter_app/converter_screen.dart';
-import 'package:unit_converter_app/unit.dart';
+import './converter_screen.dart';
+import './unit.dart';
 
 // We use an underscore to indicate that these variables are private.
 const _rowHeight = 100.0;
@@ -41,6 +41,9 @@ class Category extends StatelessWidget {
               color: color,
               units: units,
             ),
+            // This prevents the attempt to resize the screen when the keyboard
+            // is opened
+            resizeToAvoidBottomInset: false,
           );
         }
     ));
@@ -57,8 +60,8 @@ class Category extends StatelessWidget {
         height: _rowHeight,
         child: InkWell(
           borderRadius: _borderRadius,
-          highlightColor: color,
-          splashColor: color,
+          highlightColor: color['highlight'],
+          splashColor: color['splash'],
           onTap: () {
             _navigateToConverter(context);
           },
@@ -68,7 +71,7 @@ class Category extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Icon(
                     iconLocation,
                     size: 60.0,
